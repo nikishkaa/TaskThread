@@ -23,11 +23,8 @@ public class Main {
         Port port = new Port();
         Ship ship1 = new Ship(port, System.out, 1000);
         Ship ship2 = new Ship(port, System.out, 2000);
-
-
         Storage storage1 = new Storage(port, System.out, 10);
         Storage storage2 = new Storage(port, System.out, 20);
-
 
         TimeUnit.SECONDS.sleep(10);
         ship1.stop();
