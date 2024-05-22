@@ -2,6 +2,7 @@ package by.itstep.goutor.threads.port.model.logic;
 
 import by.itstep.goutor.threads.port.model.data.Container;
 import by.itstep.goutor.threads.port.model.data.port.Port;
+import by.itstep.goutor.threads.port.util.ContainerFactory;
 import by.itstep.goutor.threads.port.util.IDInitializer;
 
 import java.io.PrintStream;
@@ -31,13 +32,10 @@ public class Ship implements Runnable {
 
     @Override
     public void run() {
-        int count = IDInitializer.getContainerID();
-        Container container = new Container(count); // СОЗДАВАТЬ КОНТЕЙНЕР В ДРУГОМ МЕСТЕ!!!!!
-
         while (running) {
             try {
+                Container container = ContainerFactory.createContainer();
                 port.put(container);
-                container.setContainerId(++count);
                 stream.printf("Ship id %d delivery container id %d.\n",
                         shipId, container.getContainerId());
                 TimeUnit.MICROSECONDS.sleep(10);
