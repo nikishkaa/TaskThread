@@ -41,7 +41,7 @@ public class Ship implements Runnable {
                 TimeUnit.MICROSECONDS.sleep(10);
             } catch (InterruptedException exception) {
                 stream.print(exception);
-                LOGGER.warn(exception);
+                LOGGER.error(exception);
             }
         }
     }
