@@ -15,7 +15,7 @@ public class Port {
     }
 
     public Port(int portId, int dockCount, BlockingQueue<Container> queue) {
-        PortId = portId;
+        this.PortId = portId;
         this.dockCount = dockCount;
         this.queue = queue;
     }
