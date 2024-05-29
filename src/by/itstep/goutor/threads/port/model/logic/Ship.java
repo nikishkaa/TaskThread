@@ -1,6 +1,7 @@
 package by.itstep.goutor.threads.port.model.logic;
 
 import by.itstep.goutor.threads.port.model.data.Container;
+import by.itstep.goutor.threads.port.model.data.port.Dock;
 import by.itstep.goutor.threads.port.model.data.port.Port;
 import by.itstep.goutor.threads.port.util.ContainerFactory;
 import by.itstep.goutor.threads.port.util.IDInitializer;
@@ -14,14 +15,14 @@ public class Ship implements Runnable {
     private int containerSize; // max кол-во контейнеров на корабле
     private int shipId; // id корабля
     private PrintStream stream; // для записи UI
-    private Port port;
+    private Dock dock;
 
 
     private Thread thread;
     private boolean running;
 
-    public Ship(Port port, PrintStream stream, int shipId) {
-        this.port = port;
+    public Ship(Dock dock, PrintStream stream, int shipId) {
+        this.dock = dock;
         this.stream = stream;
         this.shipId = shipId;
         running = true;
@@ -35,7 +36,7 @@ public class Ship implements Runnable {
         while (running) {
             try {
                 Container container = ContainerFactory.createContainer();
-                port.put(container);
+                dock.put(container);
                 stream.printf("Ship id %d delivery container id %d.\n",
                         shipId, container.getContainerId());
                 TimeUnit.MICROSECONDS.sleep(10);

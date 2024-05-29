@@ -1,6 +1,7 @@
 package by.itstep.goutor.threads.port.model.logic;
 
 import by.itstep.goutor.threads.port.model.data.Container;
+import by.itstep.goutor.threads.port.model.data.port.Dock;
 import by.itstep.goutor.threads.port.model.data.port.Port;
 
 import java.io.PrintStream;
@@ -8,7 +9,7 @@ import java.io.PrintStream;
 import static by.itstep.goutor.threads.port.controller.Main.LOGGER;
 
 public class Storage implements Runnable {
-    private Port port; // Обьект порта
+    private Dock dock; // Обьект порта
     private int containerSize; // Кол-во контейнеров
     private int storageId; // Id склада
     private PrintStream stream;
@@ -16,8 +17,8 @@ public class Storage implements Runnable {
     private Thread thread;
     private boolean running;
 
-    public Storage(Port port, PrintStream stream, int storageId, int containerSize) {
-        this.port = port;
+    public Storage(Dock dock, PrintStream stream, int storageId, int containerSize) {
+        this.dock = dock;
         this.stream = stream;
         this.storageId = storageId;
         this.containerSize = containerSize;
@@ -33,7 +34,7 @@ public class Storage implements Runnable {
             try {
                 containerCount = ++containerCount;
                 if (containerCount <= containerSize) {
-                    Container container = port.get();
+                    Container container = dock.get();
                     stream.printf(" Storage %d use container %d container in storage %d.\n"
                             , storageId, container.getContainerId(), containerCount);
                 } else {
