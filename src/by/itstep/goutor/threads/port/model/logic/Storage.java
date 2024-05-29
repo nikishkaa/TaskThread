@@ -16,10 +16,11 @@ public class Storage implements Runnable {
     private Thread thread;
     private boolean running;
 
-    public Storage(Port port, PrintStream stream, int storageId) {
+    public Storage(Port port, PrintStream stream, int storageId, int containerSize) {
         this.port = port;
         this.stream = stream;
         this.storageId = storageId;
+        this.containerSize = containerSize;
         running = true;
         thread = new Thread(this);
         thread.start();
@@ -27,10 +28,18 @@ public class Storage implements Runnable {
 
     @Override
     public void run() {
+        int containerCount = 0;
         while (running) {
             try {
-                Container container = port.get();
-                stream.printf(" Storage %d use container %d.\n", storageId, container.getContainerId());
+                containerCount = ++containerCount;
+                if (containerCount <= containerSize) {
+                    Container container = port.get();
+                    stream.printf(" Storage %d use container %d container in storage %d.\n"
+                            , storageId, container.getContainerId(), containerCount);
+                } else {
+                    running = false;
+                    stream.printf("Storage %d is full\n", storageId);
+                }
             } catch (InterruptedException exception) {
                 stream.print(exception);
                 LOGGER.warn(exception);
