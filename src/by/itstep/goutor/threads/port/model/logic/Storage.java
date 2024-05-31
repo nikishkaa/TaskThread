@@ -19,6 +19,7 @@ public class Storage implements Runnable {
 
     // Реализовать метод рабочего который будет перекладывать всё на склад а в складе сделать метод пут и гет
 
+
     public Storage(Dock dock, PrintStream stream, int storageId, int containerSize) {
         this.dock = dock;
         this.stream = stream;
