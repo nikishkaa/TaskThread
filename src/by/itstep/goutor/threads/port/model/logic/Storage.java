@@ -38,7 +38,7 @@ public class Storage implements Runnable {
                 containerCount = ++containerCount;
                 if (containerCount <= containerSize) {
                     Container container = dock.get();
-                    stream.printf(" Storage %d use container %d container in storage %d.\n"
+                    stream.printf(" Storage %d use container %d. containers in storage %d.\n"
                             , storageId, container.getContainerId(), containerCount);
                 } else {
                     running = false;
